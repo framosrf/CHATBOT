@@ -13,24 +13,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4  # Esta acción obtiene el código del repositorio
 
-      # Actualizamos para usar la versión más reciente de Node.js (versión 20)
+      # Usamos la versión más reciente de Node.js (versión 20)
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Usamos Node.js 20, la versión más reciente
+          node-version: '20'  # Usamos Node.js 20
 
       # Cambiar al directorio correcto si package.json está dentro de una subcarpeta
       - name: Change directory to giga-bot-main
-        run: cd giga-bot-main  # Aquí cambias al directorio donde está package.json
+        run: cd giga-bot-main  # Aquí cambia al directorio donde está package.json
 
+      # Instalar las dependencias
       - name: Install dependencies
         run: npm install  # Este paso instalará las dependencias desde package.json
 
+      # Ejecutar pruebas si las tienes
       - name: Run tests
-        run: npm test  # Si tienes pruebas configuradas, puedes ejecutarlas aquí
+        run: npm test  # Si tienes pruebas, puedes ejecutarlas aquí
 
-      - name: Build the project (si es necesario)
-        run: npm run build  # Si tienes un comando 'build', puedes ejecutarlo aquí
-
-      - name: Deploy (si es necesario)
-        run: echo "Despliegue pendiente..."  # Si tienes algún paso de despliegue, añádelo aquí
+      # Ejecutar la construcción del proyecto
+      - name: Build the project
+        run: npm run build  # Si tienes un comando 'build', ejecútalo aquí
