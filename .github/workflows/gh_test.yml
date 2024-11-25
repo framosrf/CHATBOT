@@ -2,28 +2,27 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ]  # Cuando haces push a la rama "main"
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches: [ "main" ]  # Cuando haces un pull request a la rama "main"
+  workflow_dispatch:  # Para ejecutar manualmente desde la interfaz de GitHub Actions
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Usamos una máquina virtual con Ubuntu para ejecutar las acciones
 
     steps:
-      # Clona el repositorio
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4  # Este paso descarga el código del repositorio
 
-      # Cambia al directorio de tu proyecto
+      # Cambiar al directorio de tu proyecto, donde está el package.json
       - name: Move to the correct directory
-        run: cd giga-bot-main
+        run: cd giga-bot-main  # Cambiamos al directorio correcto dentro de la carpeta
 
-      # Instala las dependencias de tu proyecto
+      # Instalar dependencias con npm
       - name: Install dependencies
-        run: npm install
+        run: npm install  # Instala las dependencias usando el package.json
 
-      # Ejecuta los tests (si tienes configurados)
+      # Ejecutar tests (si tienes configurados)
       - name: Run tests
-        run: npm test
+        run: npm test  # Ejecuta los tests si tienes alguna configuración de test
