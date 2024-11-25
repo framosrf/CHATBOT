@@ -2,27 +2,30 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]  # Cuando haces push a la rama "main"
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]  # Cuando haces un pull request a la rama "main"
-  workflow_dispatch:  # Para ejecutar manualmente desde la interfaz de GitHub Actions
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Usamos una máquina virtual con Ubuntu para ejecutar las acciones
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4  # Este paso descarga el código del repositorio
+      - uses: actions/checkout@v4  # Esta acción obtiene el código del repositorio
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Puedes elegir la versión de Node.js que necesites
 
-      # Cambiar al directorio de tu proyecto, donde está el package.json
-      - name: Move to the correct directory
-        run: cd giga-bot-main  # Cambiamos al directorio correcto dentro de la carpeta
-
-      # Instalar dependencias con npm
       - name: Install dependencies
-        run: npm install  # Instala las dependencias usando el package.json
+        run: npm install  # Este paso instalará las dependencias desde package.json
 
-      # Ejecutar tests (si tienes configurados)
       - name: Run tests
-        run: npm test  # Ejecuta los tests si tienes alguna configuración de test
+        run: npm test  # Si tienes pruebas configuradas, puedes ejecutarlas aquí
+
+      - name: Build the project (si es necesario)
+        run: npm run build  # Si tienes un comando 'build', puedes ejecutarlo aquí
+
+      - name: Deploy (si es necesario)
+        run: echo "Despliegue pendiente..."  # Si tienes algún paso de despliegue, añádelo aquí
